@@ -48,7 +48,8 @@ public class Program {
 				reserva.updateData(checkIn, checkOut);
 				System.out.println(reserva);
 			}		
-		}	
+		}
+		
 		sc.close();
 	}
 
