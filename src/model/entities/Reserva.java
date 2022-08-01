@@ -43,9 +43,19 @@ public class Reserva {
 		
 	}
 	
-	public void updateData(Date checkIn, Date chackOut) {
+	public String updateData(Date checkIn, Date chackOut) {
+		
+		Date agora = new Date();
+		if (checkIn.before(agora) || checkOut.before(agora)) {
+			return "Data do check-out antes da data futura do check-in";			
+		}
+		if (!checkOut.after(checkIn)) {
+			return "Data de check-out anterior a data de check-in";
+		}
+		
 		this.checkIn = checkIn;
 		this.checkOut = chackOut;	
+		return null;
 	}
 
 	@Override

@@ -11,7 +11,7 @@ public class Program {
 
 	public static void main(String[] args) throws ParseException {
 		
-		/* PRIMEIRA SOLUÇÃO DE TRATAMENTO DE ERRO DE FORMA RUIM, COM O TRATAMENTO SENDO EXECUTADA NA CLASSE PRINCIPAL*/
+		/* SEGUNDA SOLUÇÃO DE TRATAMENTO DE ERRO DE FORMA RUIM, COM O TRATAMENTO SENDO DELEGADO PARA A CLASSE RESERVA RETORNANDO UM METODO STRING*/
 		
 		Scanner sc = new Scanner(System.in);
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -23,7 +23,7 @@ public class Program {
 		System.out.print("Data de check-out (dd/mm/yyyy): ");
 		Date checkOut = sdf.parse(sc.next());
 		
-		if (! checkOut.after(checkIn)) { // VERIFICA SE A DATA DO CHECKOUT É ANTES DO CHECKIN / TRATAMENTO DE ERRO
+		if (! checkOut.after(checkIn)) { 
 			System.out.print("Erro na reservar: Data do check-out antes da data de Check-in");		
 		}
 		else {
@@ -37,17 +37,14 @@ public class Program {
 			System.out.print("Data de check-out (dd/mm/yyyy): ");
 			checkOut = sdf.parse(sc.next());
 			
-			Date agora = new Date(); // TRATAMENTO DE ERRO
-			if (checkIn.before(agora) || checkOut.before(agora)) {
-				System.out.print("Erro na reserva: Data do check-out antes da data futura do check-in");			
-			}
-			else if (checkOut.after(checkIn)) {
-				System.out.println("Erro na reserva: Data de check-out anterior a data de check-in");
+			
+			String erro = reserva.updateData(checkIn, checkOut);
+			if (erro != null) {
+				System.out.println("Erro na reserva: "+erro);
 			}
 			else {
-				reserva.updateData(checkIn, checkOut);
-				System.out.println(reserva);
-			}		
+			System.out.println(reserva);
+			}
 		}
 		sc.close();
 	}
